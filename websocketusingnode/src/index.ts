@@ -1,17 +1,57 @@
-//In express
-//U use express because it provides better routing , middlewares and ecosystem for middlewares
+// //In express
+// //U use express because it provides better routing , middlewares and ecosystem for middlewares
+// import express from "express";
+// import WebSocket, { WebSocketServer } from "ws";
+// import cors from "cors";
+
+// const app = express();
+// const PORT = 8080;
+
+// app.use(cors());
+// // Set up the WebSocket server
+// const server = app.listen(PORT, () => {
+//   console.log(new Date() + `Server is listening on port ${PORT}`);
+// });
+
+// // Create a WebSocket server
+// const wss = new WebSocketServer({ server });
+
+// app.get("/", (req, res) => {
+//   console.log(new Date() + " Received request for " + req.url);
+//   res.send("hi there! From Harsh");
+// });
+
+// // Handle WebSocket connections
+// let userCount = 0;
+// wss.on("connection", (ws) => {
+//   ws.on("error", console.error);
+
+//   ws.on("message", (data, isBinary) => {
+//     // Broadcast the received message to all connected clients
+//     wss.clients.forEach((client) => {
+//       if (client.readyState === WebSocket.OPEN) {
+//         client.send(data, { binary: isBinary });
+//       }
+//     });
+//   });
+
+//   console.log("Users Connected: ", ++userCount);
+//   ws.send("Hello! Message From Server");
+// });
+// In express
+// You use express because it provides better routing, middleware, and an ecosystem for middleware
 import express from "express";
+import http from "http"; // Import http module
 import WebSocket, { WebSocketServer } from "ws";
 import cors from "cors";
 
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080; // Use the environment variable for port
 
 app.use(cors());
-// Set up the WebSocket server
-const server = app.listen(PORT, () => {
-  console.log(new Date() + `Server is listening on port ${PORT}`);
-});
+
+// Set up the HTTP server
+const server = http.createServer(app); // Create an HTTP server with express app
 
 // Create a WebSocket server
 const wss = new WebSocketServer({ server });
@@ -37,4 +77,9 @@ wss.on("connection", (ws) => {
 
   console.log("Users Connected: ", ++userCount);
   ws.send("Hello! Message From Server");
+});
+
+// Start the server and listen on the specified port
+server.listen(PORT, () => {
+  console.log(new Date() + ` Server is listening on port ${PORT}`);
 });
