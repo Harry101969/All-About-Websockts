@@ -46,6 +46,7 @@ app.get("/", (req, res) => {
 });
 
 // Handle WebSocket connections
+let userCount = 0;
 wss.on("connection", (ws) => {
   ws.on("error", console.error);
 
@@ -57,6 +58,6 @@ wss.on("connection", (ws) => {
       }
     });
   });
-
+  console.log("Users Connected: ", ++userCount);
   ws.send("Hello! Message From Server");
 });
