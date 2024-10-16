@@ -1,37 +1,23 @@
-// import WebSocket, { WebSocketServer } from "ws";
-// import http from "http";
-
-// const server = http.createServer(function (request: any, response: any) {
-//   console.log(new Date() + "Received request for " + request.url);
-//   response.end("hi there!");
-// });
-
-// const wss = new WebSocketServer({ server });
-
-// wss.on("connection", function connection(ws) {
-//   ws.on("error", console.error);
-//   ws.on("message", function message(data, isBinary) {
-//     wss.clients.forEach(function each(client) {
-//       if (client.readyState === WebSocket.OPEN) {
-//         client.send(data, { binary: isBinary });
-//       }
-//     });
-//   });
-//   ws.send("Hello ! Message From Server");
-// });
-
-// server.listen(8080, function () {
-//   console.log(new Date() + "Server is listening on port 8080");
-// });
-
 //In express
 //U use express because it provides better routing , middlewares and ecosystem for middlewares
 import express from "express";
 import WebSocket, { WebSocketServer } from "ws";
+import cors from "cors";
 
 const app = express();
 const PORT = 8080;
 
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:5173",
+      "https://full-stack-task-manager-74aa.vercel.app",
+    ],
+    methods: ["GET", "POST", "DELETE", "PUT"],
+    credentials: true, //used to setup the cookies
+  })
+);
 // Set up the WebSocket server
 const server = app.listen(PORT, () => {
   console.log(new Date() + `Server is listening on port ${PORT}`);
