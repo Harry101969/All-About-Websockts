@@ -6,6 +6,9 @@ function App() {
   const [latestMsg, setLatestMsg] = useState("");
   const [input, setInput] = useState("");
   useEffect(() => {
+    setTimeout(() => {
+      console.log("Artificial Delay");
+    }, 3000);
     const socket = new WebSocket("ws://localhost:8080");
     socket.onopen = () => {
       console.log("Connected");
