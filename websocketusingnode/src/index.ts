@@ -7,17 +7,7 @@ import cors from "cors";
 const app = express();
 const PORT = 8080;
 
-app.use(
-  cors({
-    origin: [
-      "http://localhost:3000",
-      "http://localhost:5173",
-      "https://full-stack-task-manager-74aa.vercel.app",
-    ],
-    methods: ["GET", "POST", "DELETE", "PUT"],
-    credentials: true, //used to setup the cookies
-  })
-);
+app.use(cors());
 // Set up the WebSocket server
 const server = app.listen(PORT, () => {
   console.log(new Date() + `Server is listening on port ${PORT}`);
