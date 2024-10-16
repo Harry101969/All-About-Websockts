@@ -23,7 +23,7 @@ function App() {
     return <div>Connecting to socket server...</div>;
   }
   return (
-    <div style={margin-left:1rem}>
+    <div style={{ marginLeft: "1rem" }}>
       <div className="sendMsg">
         <input
           type="text"
