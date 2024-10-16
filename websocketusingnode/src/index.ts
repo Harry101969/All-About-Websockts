@@ -34,6 +34,7 @@ wss.on("connection", (ws) => {
       }
     });
   });
+
   console.log("Users Connected: ", ++userCount);
   ws.send("Hello! Message From Server");
 });
