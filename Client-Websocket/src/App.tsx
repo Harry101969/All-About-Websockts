@@ -1,35 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [socket, setSocket] = useState<null | WebSocket>(null);
+  const [messages, setMessages] = useState<string[]>([]);
+  const [latestMsg, setLatestMsg] = useState("");
+  const [input, setInput] = useState("");
+  useEffect(() => {
+    const socket = new WebSocket("ws://localhost:8080");
+    socket.onopen = () => {
+      console.log("Connected");
+      setSocket(socket);
+    };
+    socket.onmessage = (message) => {
+      console.log("Receiived message: ", message.data);
+      setMessages((m) => [...m, message.data]);
+      setLatestMsg(message.data);
+    };
+    setSocket(socket);
+  }, []);
 
+  if (!socket) {
+    return <div>Connecting to socket server...</div>;
+  }
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div>
+      <div className="sendMsg">
+        <input
+          type="text"
+          onChange={(e) => setInput(e.target.value)}
+          value={input}
+        />
+        <button
+          onClick={() => {
+            socket.send(input);
+          }}
+        >
+          Send
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+      <div>
+        <h2>Messages</h2>
+        {messages.map((msg, idx) => (
+          <div key={idx}>{msg}</div>
+        ))}
+      </div>
+      <div>
+        <h2>Latest Messages</h2>
+        {latestMsg}
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
