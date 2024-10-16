@@ -1,7 +1,7 @@
 1) For using this first go to the websocketusingnode directory and run these commands to start the websocket server:
 i) npm install
 ii)npm run build
-iii)npm run dev
+iii)npm run start
 
 2) Then for activating the two client application navigate to the directories Client-Websocket and client-nextjs/usingnext and run the following commands:
 3) i)npm i
