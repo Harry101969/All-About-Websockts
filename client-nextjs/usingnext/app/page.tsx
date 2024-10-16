@@ -1,6 +1,7 @@
+"use client";
 import { useEffect, useState } from "react";
 
-function App() {
+export default function Page() {
   const [socket, setSocket] = useState<null | WebSocket>(null);
   const [messages, setMessages] = useState<string[]>([]);
   const [latestMsg, setLatestMsg] = useState("");
@@ -31,12 +32,13 @@ function App() {
     return <div>Connecting to socket server...</div>;
   }
   return (
-    <div style={{ marginLeft: "3rem" }}>
+    <div style={{ marginLeft: "1rem" }}>
       <div className="sendMsg">
         <input
           type="text"
           onChange={(e) => setInput(e.target.value)}
           value={input}
+          className="border-black"
         />
         <button
           onClick={() => {
@@ -48,17 +50,15 @@ function App() {
       </div>
 
       <div>
-        <h2>Messages</h2>
+        <h2 className="font-bold ">Messages</h2>
         {messages.map((msg, idx) => (
           <div key={idx}>{msg}</div>
         ))}
       </div>
       <div>
-        <h2>Latest Messages</h2>
+        <h2 className="font-bold">Latest Messages</h2>
         {latestMsg}
       </div>
     </div>
   );
 }
-
-export default App;
