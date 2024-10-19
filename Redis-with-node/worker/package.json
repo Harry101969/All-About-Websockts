@@ -1,5 +1,5 @@
 {
-  "name": "express-backend",
+  "name": "worker",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,6 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "express-backend": "file:"
+    "worker": "file:"
   }
 }
