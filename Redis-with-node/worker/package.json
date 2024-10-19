@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "redis": "^4.7.0",
     "worker": "file:"
   }
 }

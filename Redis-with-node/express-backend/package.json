@@ -12,6 +12,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "express-backend": "file:"
+    "@types/express": "^5.0.0",
+    "express": "^4.21.1",
+    "express-backend": "file:",
+    "redis": "^4.7.0"
   }
 }
