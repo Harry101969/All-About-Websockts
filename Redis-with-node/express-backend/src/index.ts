@@ -11,13 +11,11 @@ app.get("/", (req, res) => {
   res.send("Hello User!");
 });
 app.post("/submit", async (req, res) => {
-  const problemId = req.body.problemId;
-  const code = req.body.code;
-  const language = req.body.language;
+  const { problemId, userId, language, code } = req.body;
   try {
     await client.lPush(
       "problems",
-      JSON.stringify({ code, language, problemId })
+      JSON.stringify({ code, language, problemId, userId })
     );
     res.status(200).send("Submission received and stored!");
   } catch (error) {
